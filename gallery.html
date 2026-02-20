@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Эксперимент с Bootstrap</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="custom.css" />
+  </head>
+  <body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <div class="container mt-5">
+      <h2 class="text-center mb-4">Моё портфолио</h2>
+      <div class="text-center mb-4">
+        <div class="btn-group" role="group">
+          <button
+            class="btn btn-outline-primary"
+            onclick="filterGallery('all')"
+          >
+            Все
+          </button>
+          <button
+            class="btn btn-outline-primary"
+            onclick="filterGallery('web')"
+          >
+            Веб-дизайн
+          </button>
+          <button
+            class="btn btn-outline-primary"
+            onclick="filterGallery('photo')"
+          >
+            Фотографии
+          </button>
+          <button
+            class="btn btn-outline-primary"
+            onclick="filterGallery('graphic')"
+          >
+            Графика
+          </button>
+        </div>
+        <div class="row g-3" id="gallery">
+          <div class="col-6 col-md-4 gallery-item" data-category="web">
+            <div class="card h-100">
+              <img
+                src="https://avatars.mds.yandex.net/get-altay/1938975/2a0000016f2fc14f7c2e79db8c47360e6126/orig"
+                class="card-img-top"
+                alt="Веб-проект"
+              />
+              <div class="card-body p-2">
+                <h6 class="card-title mb-0">Корпоративный сайт</h6>
+                <small class="text-muted">Веб-дизайн</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 gallery-item" data-category="web">
+            <div class="card h-100">
+              <img
+                src="https://as2.ftcdn.net/jpg/02/78/52/07/1000_F_278520748_G9sRQdSValj67Hihmt4r3ji6SLRT3ViA.jpg"
+                class="card-img-top"
+                alt="Веб-проект"
+              />
+              <div class="card-body p-2">
+                <h6 class="card-title mb-0">Фото пустыни</h6>
+                <small class="text-muted">Фото</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 gallery-item" data-category="photo">
+            <div class="card h-100">
+              <img
+                src="https://avatars.mds.yandex.net/i?id=8bc72953a4b7b7d82097b1f8b8ae1d8a66a8b165-5344276-images-thumbs&n=13"
+                class="card-img-top"
+                alt="Веб-проект"
+              />
+              <div class="card-body p-2">
+                <h6 class="card-title mb-0">Фото леса</h6>
+                <small class="text-muted">Фото</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 gallery-item" data-category="photo">
+            <div class="card h-100">
+              <img
+                src="https://avatars.mds.yandex.net/i?id=89743a7f981190db96f3e46ae7852c0c_l-4569510-images-thumbs&n=13"
+                class="card-img-top"
+                alt="Веб-проект"
+              />
+              <div class="card-body p-2">
+                <h6 class="card-title mb-0">Фото утки</h6>
+                <small class="text-muted">Графика</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 gallery-item" data-category="graphic">
+            <div class="card h-100">
+              <img
+                src="https://diggitymarketing.com/wp-content/uploads/2025/06/Website-Creation-Tools.webp"
+                class="card-img-top"
+                alt="Веб-проект"
+              />
+              <div class="card-body p-2">
+                <h6 class="card-title mb-0">Веб</h6>
+                <small class="text-muted">Веб-дизайн</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 gallery-item" data-category="graphic">
+            <div class="card h-100">
+              <img
+                src="https://avatars.mds.yandex.net/i?id=31373bd639a02e96575b0b789c5fc31c_sr-10651277-images-thumbs&n=13"
+                class="card-img-top"
+                alt="Веб-проект"
+              />
+              <div class="card-body p-2">
+                <h6 class="card-title mb-0">Рисунок кота</h6>
+                <small class="text-muted">Графика</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function filterGallery(category, event) {
+        const items = document.querySelectorAll(".gallery-item");
+        items.forEach((item) => {
+          const itemCategory = item.dataset.category;
+          item.style.display =
+            category === "all" || category === itemCategory ? "block" : "none";
+        });
+
+        const buttons = document.querySelectorAll(".btn-group .btn");
+        buttons.forEach((btn) => {
+          btn.classList.remove("active");
+        });
+
+        if (event) {
+          event.target.classList.add("active");
+        }
+      }
+    </script>
+    <script>
+      window.onload = function () {
+        const firstButton = document.querySelector(".btn-group .btn");
+        if (firstButton) {
+          firstButton.classList.add("active");
+        }
+      };
+    </script>
+  </body>
+</html>
